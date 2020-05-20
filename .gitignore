@@ -4,3 +4,5 @@ example/build
 example/.vscode
 
 .dart_tool/
+
+.history/

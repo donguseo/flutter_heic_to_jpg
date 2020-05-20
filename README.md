@@ -1,17 +1,23 @@
 # heic_to_jpg
 
-A new flutter plugin project.
+With this plugin you can convert HEIC/HEIF file to JPEG image easily
 
-## Getting Started
+## Installation
+Add the Package
+```yaml
+dependencies:
+  heic_to_jpg: ^0.1.0
+```
 
-This project is a starting point for a Flutter
-[plug-in package](https://flutter.dev/developing-packages/),
-a specialized package that includes platform-specific implementation code for
-Android and/or iOS.
+## How to use
 
-For help getting started with Flutter, view our 
-[online documentation](https://flutter.dev/docs), which offers tutorials, 
-samples, guidance on mobile development, and a full API reference.
+Import the package in your dart file
 
+```dart
+import 'package:heic_to_jpg/heic_to_jpg.dart';
+```
 
-## 
+And call convert method with local HEIC/HEIF image file path.
+```dart
+String jpegPath = await HeicToJpg.convert(heicPath);
+```
