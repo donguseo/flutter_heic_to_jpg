@@ -1,0 +1,6 @@
+.DS_Store
+example/.dart_tool/
+example/build
+example/.vscode
+
+.dart_tool/
