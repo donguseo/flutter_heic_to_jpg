@@ -6,8 +6,9 @@ import 'dart:async';
 
 import 'package:heic_to_jpg/heic_to_jpg.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:future_progress_dialog/future_progress_dialog.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(MaterialApp(home: MyApp()));
 
 class MyApp extends StatefulWidget {
   @override
@@ -17,43 +18,49 @@ class MyApp extends StatefulWidget {
 class _MyAppState extends State<MyApp> {
   String heicUrl = 'https://filesamples.com/samples/image/heic/sample1.heic';
   String jpeg;
-  @override
-  void initState() {
-    super.initState();
-    initPlatformState();
-  }
+  bool initialized = false;
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
-    File heicFile = await _downloadFile(heicUrl, 'a.heic');
-    String tmp  = await HeicToJpg.convert(heicFile.path);
-    setState(() {
-      jpeg = tmp;
+    if (initialized) return;
+    initialized = true;
+    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) async {
+      String tmp = await showDialog(
+          context: context, child: FutureProgressDialog(downloadAndConvert()));
+      setState(() {
+        jpeg = tmp;
+      });
     });
+  }
+
+  Future<String> downloadAndConvert() async {
+    File heicFile = await _downloadFile(heicUrl, 'a.heic');
+    return HeicToJpg.convert(heicFile.path);
   }
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      home: Scaffold(
-        appBar: AppBar(
-          title: const Text('Plugin example app'),
-        ),
-        body: Center(
-          child: (jpeg != null && jpeg.isNotEmpty)? Image.file(File(jpeg)) : Text('No Image'),
-        ),
+    initPlatformState();
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Plugin example app'),
+      ),
+      body: Center(
+        child: (jpeg != null && jpeg.isNotEmpty)
+            ? Image.file(File(jpeg))
+            : Text('No Image'),
       ),
     );
   }
 
   static var httpClient = new HttpClient();
-Future<File> _downloadFile(String url, String filename) async {
-  var request = await httpClient.getUrl(Uri.parse(url));
-  var response = await request.close();
-  var bytes = await consolidateHttpClientResponseBytes(response);
-  String dir = (await getTemporaryDirectory()).path;
-  File file = new File('$dir/$filename');
-  await file.writeAsBytes(bytes);
-  return file;
-}
+  Future<File> _downloadFile(String url, String filename) async {
+    var request = await httpClient.getUrl(Uri.parse(url));
+    var response = await request.close();
+    var bytes = await consolidateHttpClientResponseBytes(response);
+    String dir = (await getTemporaryDirectory()).path;
+    File file = new File('$dir/$filename');
+    await file.writeAsBytes(bytes);
+    return file;
+  }
 }

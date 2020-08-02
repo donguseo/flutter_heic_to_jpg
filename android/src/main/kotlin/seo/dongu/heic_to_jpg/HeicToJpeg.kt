@@ -6,13 +6,10 @@ import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
 
-fun convertHeicToJpeg(heic: String, cacheDir: File?) : String? {
-    if(cacheDir == null){
-        return null
-    }
+fun convertHeicToJpeg(heic: String, outputFile: String) : String? {
     try {
         val bitmap = BitmapFactory.decodeFile(heic)
-        val file = File(cacheDir.path + "/${System.currentTimeMillis()}.jpg")
+        val file = File(outputFile)
         file.createNewFile()
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file));
         return file.path

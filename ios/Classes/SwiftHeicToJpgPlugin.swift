@@ -10,10 +10,16 @@ public class SwiftHeicToJpgPlugin: NSObject, FlutterPlugin {
 
   public func handle(_ call: FlutterMethodCall, result: @escaping FlutterResult) {
     if(call.method == "convert"){
-        let dic = call.arguments as! NSDictionary
+        let dic = call.arguments as! Dictionary<String, Any>
         let heicPath = dic["heicPath"] as! String
-        let jpegPath = NSTemporaryDirectory().appendingFormat("%d.jpg", Date().timeIntervalSince1970 * 1000)
-        result(fromHeicToJpg(heicPath: heicPath, jpgPath: jpegPath))
+        var jpgPath :String?
+        if(!(dic["jpgPath"] is NSNull)){
+            jpgPath = dic["jpgPath"] as! String?
+        }
+        if(jpgPath == nil || jpgPath!.isEmpty){
+            jpgPath = NSTemporaryDirectory().appendingFormat("%d.jpg", Date().timeIntervalSince1970 * 1000)
+        }
+        result(fromHeicToJpg(heicPath: heicPath, jpgPath: jpgPath!))
     }
   }
     

@@ -74,13 +74,20 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
+  future_progress_dialog:
+    dependency: "direct dev"
+    description:
+      name: future_progress_dialog
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.1.1"
   heic_to_jpg:
     dependency: "direct dev"
     description:
       path: ".."
       relative: true
     source: path
-    version: "0.1.1"
+    version: "0.1.2"
   image:
     dependency: transitive
     description:

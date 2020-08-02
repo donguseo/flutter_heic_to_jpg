@@ -1,7 +1,6 @@
 name: heic_to_jpg
 description: With this library you can convert HEIC/HEIF file to JPEG image easily
-version: 0.1.1
-author: donguseo<dongu0406@gmail.com>
+version: 0.1.2
 homepage: https://github.com/donguseo/flutter_heic_to_jpg
 
 environment:

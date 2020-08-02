@@ -2,6 +2,7 @@ name: heic_to_jpg_example
 description: Demonstrates how to use the heic_to_jpg plugin.
 publish_to: 'none'
 
+
 environment:
   sdk: ">=2.1.0 <3.0.0"
 
@@ -20,6 +21,8 @@ dev_dependencies:
 
   heic_to_jpg:
     path: ../
+
+  future_progress_dialog: ^0.1.1
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
