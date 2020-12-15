@@ -24,7 +24,10 @@ public class SwiftHeicToJpgPlugin: NSObject, FlutterPlugin {
   }
     
     func fromHeicToJpg(heicPath: String, jpgPath: String) -> String? {
-        let heicImage = UIImage(named:heicPath)
+        let heicImage : UIImage? = UIImage(named:heicPath)
+        if heicImage == nil {
+          return nil
+        }
         let jpgImageData = heicImage!.jpegData(compressionQuality: 1.0)
         FileManager.default.createFile(atPath: jpgPath, contents: jpgImageData, attributes: nil)
         return jpgPath

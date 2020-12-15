@@ -6,7 +6,7 @@ With this plugin you can convert HEIC/HEIF file to JPEG image easily
 Add the Package
 ```yaml
 dependencies:
-  heic_to_jpg: ^0.1.2
+  heic_to_jpg: ^0.1.3
 ```
 
 ## How to use

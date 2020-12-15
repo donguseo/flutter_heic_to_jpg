@@ -35,7 +35,8 @@ class _MyAppState extends State<MyApp> {
 
   Future<String> downloadAndConvert() async {
     File heicFile = await _downloadFile(heicUrl, 'a.heic');
-    return HeicToJpg.convert(heicFile.path);
+    String convertedPath = (await getTemporaryDirectory()).path + "/b.heic";
+    return HeicToJpg.convert(heicFile.path, jpgPath: convertedPath);
   }
 
   @override
