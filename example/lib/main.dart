@@ -17,23 +17,25 @@ class MyApp extends StatefulWidget {
 
 class _MyAppState extends State<MyApp> {
   String heicUrl = 'https://filesamples.com/samples/image/heic/sample1.heic';
-  String jpeg;
+  String? jpeg;
   bool initialized = false;
 
   // Platform messages are asynchronous, so we initialize in an async method.
   Future<void> initPlatformState() async {
     if (initialized) return;
     initialized = true;
-    WidgetsBinding.instance.addPostFrameCallback((Duration timeStamp) async {
-      String tmp = await showDialog(
-          context: context, child: FutureProgressDialog(downloadAndConvert()));
+    WidgetsBinding.instance!.addPostFrameCallback((Duration timeStamp) async {
+      String? tmp = await showDialog(
+        builder: (context) => FutureProgressDialog(downloadAndConvert()),
+          context: context,
+      );
       setState(() {
         jpeg = tmp;
       });
     });
   }
 
-  Future<String> downloadAndConvert() async {
+  Future<String?> downloadAndConvert() async {
     File heicFile = await _downloadFile(heicUrl, 'a.heic');
     String convertedPath = (await getTemporaryDirectory()).path + "/b.heic";
     return HeicToJpg.convert(heicFile.path, jpgPath: convertedPath);
@@ -47,8 +49,8 @@ class _MyAppState extends State<MyApp> {
         title: const Text('Plugin example app'),
       ),
       body: Center(
-        child: (jpeg != null && jpeg.isNotEmpty)
-            ? Image.file(File(jpeg))
+        child: (jpeg != null && jpeg!.isNotEmpty)
+            ? Image.file(File(jpeg!))
             : Text('No Image'),
       ),
     );

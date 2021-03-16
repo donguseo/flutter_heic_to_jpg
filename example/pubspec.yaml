@@ -4,16 +4,12 @@ publish_to: 'none'
 
 
 environment:
-  sdk: ">=2.1.0 <3.0.0"
+  sdk: '>=2.12.0 <3.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  path_provider: ^1.6.8
-
-  # The following adds the Cupertino Icons font to your application.
-  # Use with the CupertinoIcons class for iOS style icons.
-  cupertino_icons: ^0.1.2
+  path_provider: ^2.0.1
 
 dev_dependencies:
   flutter_test:
@@ -22,7 +18,7 @@ dev_dependencies:
   heic_to_jpg:
     path: ../
 
-  future_progress_dialog: ^0.1.1
+  future_progress_dialog: ^0.1.1 # Not null safe, so need to run example with flutter run --no-sound-null-safety
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
