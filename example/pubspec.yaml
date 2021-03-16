@@ -18,7 +18,7 @@ dev_dependencies:
   heic_to_jpg:
     path: ../
 
-  future_progress_dialog: ^0.1.1 # Not null safe, so need to run example with flutter run --no-sound-null-safety
+  future_progress_dialog: ^0.2.0
 
 # For information on the generic Dart part of this file, see the
 # following page: https://dart.dev/tools/pub/pubspec
