@@ -16,19 +16,29 @@ public class SwiftHeicToJpgPlugin: NSObject, FlutterPlugin {
         if(!(dic["jpgPath"] is NSNull)){
             jpgPath = dic["jpgPath"] as! String?
         }
+
         if(jpgPath == nil || jpgPath!.isEmpty){
             jpgPath = NSTemporaryDirectory().appendingFormat("%d.jpg", Date().timeIntervalSince1970 * 1000)
         }
-        result(fromHeicToJpg(heicPath: heicPath, jpgPath: jpgPath!))
+
+        var compressionQuality :Int?
+        if(!(dic["compressionQuality"] is NSNull)){
+            compressionQuality = dic["compressionQuality"] as! Int?
+        }
+
+        if(compressionQuality==nil){
+            compressionQuality=100
+        }
+        result(fromHeicToJpg(heicPath: heicPath, jpgPath: jpgPath!,compressionQuality:compressionQuality!))
     }
   }
     
-    func fromHeicToJpg(heicPath: String, jpgPath: String) -> String? {
+    func fromHeicToJpg(heicPath: String, jpgPath: String,compressionQuality:Int) -> String? {
         let heicImage : UIImage? = UIImage(named:heicPath)
         if heicImage == nil {
           return nil
         }
-        let jpgImageData = heicImage!.jpegData(compressionQuality: 1.0)
+        let jpgImageData = heicImage!.jpegData(compressionQuality: CGFloat(compressionQuality/100))
         FileManager.default.createFile(atPath: jpgPath, contents: jpgImageData, attributes: nil)
         return jpgPath
     }
