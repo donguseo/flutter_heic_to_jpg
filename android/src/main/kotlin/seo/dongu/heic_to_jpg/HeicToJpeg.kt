@@ -15,8 +15,6 @@ fun convertHeicToJpeg(heic: String, outputFile: String,compressionQuality: Int) 
         bitmap.compress(Bitmap.CompressFormat.JPEG, compressionQuality, FileOutputStream(file));
         return file.path
     }catch (e:Exception){
-        var logger = Logger.getLogger("MyLogger");
-        logger.info(e.toString());
     }
     return null
 }
