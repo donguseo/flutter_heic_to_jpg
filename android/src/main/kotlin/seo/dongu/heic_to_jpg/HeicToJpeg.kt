@@ -5,13 +5,14 @@ import android.graphics.BitmapFactory
 import java.io.File
 import java.io.FileOutputStream
 import java.lang.Exception
+import java.util.logging.Logger;
 
-fun convertHeicToJpeg(heic: String, outputFile: String) : String? {
+fun convertHeicToJpeg(heic: String, outputFile: String,compressionQuality: Int) : String? {
     try {
         val bitmap = BitmapFactory.decodeFile(heic)
         val file = File(outputFile)
         file.createNewFile()
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, FileOutputStream(file));
+        bitmap.compress(Bitmap.CompressFormat.JPEG, compressionQuality, FileOutputStream(file));
         return file.path
     }catch (e:Exception){
     }

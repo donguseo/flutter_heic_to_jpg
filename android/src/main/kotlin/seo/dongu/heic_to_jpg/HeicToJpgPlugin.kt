@@ -47,7 +47,11 @@ class HeicToJpgPlugin : FlutterPlugin, MethodCallHandler {
                     if(jpgPath.isNullOrEmpty()){
                         jpgPath = "${applicationContext?.cacheDir}/${System.currentTimeMillis()}.jpg"
                     }
-                    val output = convertHeicToJpeg(call.argument<String>("heicPath")!!, jpgPath)
+                    var compressionQuality = call.argument<Int>("compressionQuality")
+                    if(compressionQuality==null){
+                        compressionQuality = 100
+                    }
+                    val output = convertHeicToJpeg(call.argument<String>("heicPath")!!, jpgPath,compressionQuality)
                     handler.post {
                         if (output != null) {
                             result.success(output)
